@@ -1,0 +1,8 @@
+lib
+target
+.clj-kondo
+data
+.idea
+.lsp
+.cpcache
+plot

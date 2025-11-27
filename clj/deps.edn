@@ -1,0 +1,3 @@
+{:paths  ["src" "test" "resources"]
+ :deps {esg/esg {:local/root "../target/esg-1.0.0-SNAPSHOT-jar-with-dependencies.jar"}
+        alglib/alglib {:local/root "../lib/alglib406free.jar"}}}
