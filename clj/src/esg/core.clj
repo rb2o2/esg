@@ -1,14 +1,8 @@
-(ns esg.core
-  ;; (:import [io.github.rb2o2.esg RegularizedDirac])
-  ;; (:import [io.github.rb2o2.esg App])
+(ns esg.core 
   (:import [io.github.rb2o2.esg Mesh2D])
-  (:require (clojure.string))
-  ;; (:import [alglib alglib])
+  (:require (clojure.string)) 
   )
 
-;; (print (RegularizedDirac/rd 0.145 0.12 0.5 0.5 0.15))r54
-;; (App/main (into-array String []))
-;; (print (alglib/dawsonintegral 0.25 nil))
 (spit (str "../data/" (.toString (java.util.UUID/randomUUID)) ".csv") 
       (let [mesh (Mesh2D. (Integer/parseInt (nth *command-line-args* 0)) 
                           (Integer/parseInt (nth *command-line-args* 1)) 

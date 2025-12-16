@@ -1,3 +1,4 @@
 {:paths  ["src" "test" "resources"]
- :deps {esg/esg {:local/root "../target/esg-1.0.0-SNAPSHOT-jar-with-dependencies.jar"}
-        alglib/alglib {:local/root "../lib/alglib406free.jar"}}}
+ :deps {rb2o2/esg {:local/root "../target/esg-1.0.0-SNAPSHOT-jar-with-dependencies.jar"}
+        tech.tablesaw/tablesaw-jsplot {:mvn/version "0.44.4"}
+        org.clojure/data.csv {:mvn/version "1.1.0"}}}

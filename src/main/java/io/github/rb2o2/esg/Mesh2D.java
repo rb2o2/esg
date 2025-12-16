@@ -1,6 +1,7 @@
 package io.github.rb2o2.esg;
 
 import java.util.List;
+import java.util.Locale;
 
 public class Mesh2D {
     public static int dimx = 500;
@@ -46,7 +47,7 @@ public class Mesh2D {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < vals.length; i++) {
             for (int j = 0; j < vals[0].length; j++) {
-                sb.append(String.format("%.2e,", vals[i][j]));
+                sb.append(String.format(Locale.US, "%.2e,", vals[i][j]));
             }
             sb.append("\n");
         }

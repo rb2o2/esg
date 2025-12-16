@@ -6,3 +6,5 @@ data
 .lsp
 .cpcache
 plot
+testoutput
+build-lib.bat
