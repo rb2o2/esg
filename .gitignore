@@ -8,3 +8,4 @@ data
 plot
 testoutput
 build-lib.bat
+build-lib.sh
