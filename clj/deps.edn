@@ -1,4 +1,6 @@
 {:paths  ["src" "test" "resources"]
  :deps {rb2o2/esg {:local/root "../target/esg-1.0.0-SNAPSHOT-jar-with-dependencies.jar"}
         tech.tablesaw/tablesaw-jsplot {:mvn/version "0.44.4"}
-        org.clojure/data.csv {:mvn/version "1.1.0"}}}
+        org.clojure/data.csv {:mvn/version "1.1.0"}
+        org.jfree/jfreechart {:mvn/version "1.5.6"}
+        eu.hansolo.fx/charts {:mvn/version "21.0.27"}}}
