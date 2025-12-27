@@ -9,14 +9,13 @@
     (-> file
         (slurp)
         (csv/read-csv))))
-(print(count data))
 (Plot/show
  (Figure.
   (into-array
    HeatmapTrace
    [(.build (HeatmapTrace/builder
-             (into-array Object (range 0 100))
-             (into-array Object (range 0 100))
+             (into-array Object (range 0 (count data)))
+             (into-array Object (range 0 (count (nth data 0))))
              (into-array 
               (map 
                #(double-array 
