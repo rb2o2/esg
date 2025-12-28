@@ -13,7 +13,6 @@
 (defn data-points [nx ny nf]
   (fn [c & charges]
     (let [mesh (Mesh2D. nx ny nf)]
-      (print (partition  3 (cons c charges)))
       (.initMoves mesh (apply java.util.List/of 
                         (map (fn [x3] (into-array Double x3))
                              (partition 3 (cons c charges))

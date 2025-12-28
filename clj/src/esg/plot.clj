@@ -4,7 +4,8 @@
             [esg.core :as core])
   (:import [tech.tablesaw.plotly Plot] 
            [tech.tablesaw.plotly.components Figure]
-           [tech.tablesaw.plotly.traces HeatmapTrace]))
+           [tech.tablesaw.plotly.traces HeatmapTrace]
+           [tech.tablesaw.plotly.components Layout]))
 (comment (def data
            (with-open [file (io/reader (nth *command-line-args* 0))]
              (-> file
@@ -33,7 +34,15 @@
 
 (defn plot-data [read] 
  (Plot/show
-  (Figure.
+  (Figure. 
+   (.build 
+    (.height 
+     (.width
+      (Layout/builder) 
+     600)
+     600)
+   )
+   
    (into-array
     HeatmapTrace
     [(.build (HeatmapTrace/builder
