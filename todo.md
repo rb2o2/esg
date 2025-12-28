@@ -1,0 +1,6 @@
+- make click listener for move coordinates
+    - revert button when misclick
+- read clicks as move intention
+    - then provide input for charge size when charges may differ and confirm move control
+- recount data, update js graph
+- switch sides and charge sign 
