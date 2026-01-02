@@ -63,6 +63,6 @@
                        ))
                 read))))]))) )
 
-(let [d (read-data ((core/data-points 100 100 100) 0.18 0.95 1.0 0.34 0.52 1.0 0.78 0.65 1.0))] 
-    (plot-data d))
-(Thread/sleep 800)
+;; (let [d (read-data ((core/data-points 100 100 100) 0.18 0.95 1.0 0.34 0.52 1.0 0.78 0.65 1.0))] 
+    ;; (plot-data d))
+;; (Thread/sleep 800)
