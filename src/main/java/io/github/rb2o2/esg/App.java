@@ -2,19 +2,19 @@ package io.github.rb2o2.esg;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
-//        var mesh = new Mesh2D(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-//        mesh.initMoves(new ArrayList<>(){{add(new Double[]{0.5,0.5,1.0});}});
-//        Mesh2D.csvPrint(mesh.uvalues);
         new AppFrame();
     }
 }
 
 class AppFrame extends JFrame {
+    private final Color p1 = new Color(19, 200, 42);
+    private final Color p2 = new Color(181, 0, 75);
     private final Color[][] colorMesh;
     private final Mesh2D mesh = new Mesh2D(64, 64, 64);
     public AppFrame() {
@@ -54,6 +54,20 @@ class AppFrame extends JFrame {
         var labelC = new JLabel("c:");
         var scoreText = new JLabel("0 : 0");
         var okMoveButton = new JButton("Move");
+        okMoveButton.addActionListener((ActionEvent a) -> {
+            okMoveButton.setText(". . .");
+            mesh.updateWithMove(new Double[] {
+                    Double.parseDouble(textFieldX.getText()),
+                    Double.parseDouble(textFieldY.getText()),
+                    Double.parseDouble(textFieldC.getText())});
+            for (var i = 0; i< 64; i++) {
+                for (var j = 0; j < 64; j++) {
+                    colorMesh[i][j] = mesh.uvalues[i][j] > 0 ? p1: p2;
+                }
+            }
+            okMoveButton.setText("Move");
+            panel.repaint();
+        });
         mesh.initMoves(List.of());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);

@@ -45,13 +45,13 @@ public class Mesh2D {
     }
 
     public void updateWithMove(Double[] move) {
+        sign = -1*sign;
         for (int n = 0; n < dimx; n++) {
             for (int m = 0; m < dimy; m++) {
                 double xi = 1.0/dimx * n;
                 double yi = 1.0/dimy * m;
                 for (int i = 1; i <= maxFreq; i++) {
-                    for (int j = 1; j < maxFreq; j++) {
-                        sign = -1*sign;
+                    for (int j = 1; j <= maxFreq; j++) {
                         uvalues[n][m] += - move[2] * sign *
                                 Math.sin(i * Math.PI * xi) * Math.sin(j * Math.PI * yi) *
                                 Math.sin(i * Math.PI * move[0]) * 
@@ -65,7 +65,7 @@ public class Mesh2D {
     }
 
     public static String csvPrint(double[][] vals) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         {
             int i = 0;
             for (int j = 0; j < vals[0].length-1; j++) {
