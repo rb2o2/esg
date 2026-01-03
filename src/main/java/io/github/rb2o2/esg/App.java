@@ -3,6 +3,7 @@ package io.github.rb2o2.esg;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class App {
@@ -16,6 +17,7 @@ class AppFrame extends JFrame {
     private final Color p1 = new Color(19, 200, 42);
     private final Color p2 = new Color(181, 0, 75);
     private final Color[][] colorMesh;
+    private final List<Double[]> moves = new ArrayList<>();
     private final Mesh2D mesh = new Mesh2D(64, 64, 64);
     public AppFrame() {
         setLayout(new BorderLayout());
@@ -35,7 +37,7 @@ class AppFrame extends JFrame {
                 super.paint(g);
                 var g2d = (Graphics2D) g;
                 for (var i = 0; i < colorMesh.length; i++) {
-                    for (var j = 0; j< colorMesh[0].length; j++) {
+                    for (var j = 0; j < colorMesh[0].length; j++) {
                         g2d.setPaint(colorMesh[i][j]);
                         var r = new Rectangle(i * 8, j * 8, 8, 8);
                         g2d.draw(r);
@@ -43,26 +45,40 @@ class AppFrame extends JFrame {
 
                     }
                 }
+                for (var i = 0; i < moves.size(); i++) {
+                    g2d.setPaint(Color.BLACK);
+                    var r = new Rectangle((int)Math.floor(moves.get(i)[0] * 512)-1,
+                            (int) Math.floor(moves.get(i)[1] * 512)-1, 2, 2);
+                    g2d.draw(r);
+                    g2d.fill(r);
+                }
             }
         };
-        var inputPanel = new JPanel(new FlowLayout());
+        var layout = new GridBagLayout();
+        var inputPanel = new JPanel(layout);
+
         var textFieldX = new JTextField("0.5");
+        textFieldX.setColumns(6);
         var labelX = new JLabel("x:");
         var textFieldY = new JTextField("0.5");
+        textFieldY.setColumns(6);
         var labelY = new JLabel("y:");
         var textFieldC = new JTextField("1.0");
+        textFieldC.setColumns(6);
         var labelC = new JLabel("c:");
         var scoreText = new JLabel("0 : 0");
         var okMoveButton = new JButton("Move");
         okMoveButton.addActionListener((ActionEvent a) -> {
-            okMoveButton.setText(". . .");
-            mesh.updateWithMove(new Double[] {
+            var mv = new Double[] {
                     Double.parseDouble(textFieldX.getText()),
                     Double.parseDouble(textFieldY.getText()),
-                    Double.parseDouble(textFieldC.getText())});
+                    Double.parseDouble(textFieldC.getText())};
+            moves.add(mv);
+            okMoveButton.setText(". . .");
+            mesh.updateWithMove(mv);
             for (var i = 0; i< 64; i++) {
                 for (var j = 0; j < 64; j++) {
-                    colorMesh[i][j] = mesh.uvalues[i][j] > 0 ? p1: p2;
+                    colorMesh[i][j] = mesh.uvalues[i][j] >= 0 ? p1: p2;
                 }
             }
             okMoveButton.setText("Move");
@@ -76,13 +92,31 @@ class AppFrame extends JFrame {
         panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panel.setPreferredSize(new Dimension(512,512));
         add(panel, BorderLayout.CENTER);
+        var gc = new GridBagConstraints() {{this.fill = GridBagConstraints.BOTH;}};
+
+        layout.setConstraints(labelX, gc);
         inputPanel.add(labelX);
+        layout.setConstraints(textFieldX, gc);
         inputPanel.add(textFieldX);
+
+
+        layout.setConstraints(labelY, gc);
         inputPanel.add(labelY);
+        gc.gridwidth = GridBagConstraints.REMAINDER;
+        layout.setConstraints(textFieldY, gc);
         inputPanel.add(textFieldY);
+        gc.gridwidth = 1;
+
+        layout.setConstraints(labelC, gc);
         inputPanel.add(labelC);
+
+        layout.setConstraints(textFieldC, gc);
         inputPanel.add(textFieldC);
+        gc.gridwidth = GridBagConstraints.REMAINDER;
+        layout.setConstraints(scoreText, gc);
         inputPanel.add(scoreText);
+        gc.gridwidth = 4;
+        layout.setConstraints(okMoveButton, gc);
         inputPanel.add(okMoveButton);
         add(inputPanel, BorderLayout.EAST);
         setVisible(true);

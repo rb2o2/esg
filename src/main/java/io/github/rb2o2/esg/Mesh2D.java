@@ -45,7 +45,6 @@ public class Mesh2D {
     }
 
     public void updateWithMove(Double[] move) {
-        sign = -1*sign;
         for (int n = 0; n < dimx; n++) {
             for (int m = 0; m < dimy; m++) {
                 double xi = 1.0/dimx * n;
@@ -62,6 +61,7 @@ public class Mesh2D {
                 }
             }
         }
+        sign = -1*sign;
     }
 
     public static String csvPrint(double[][] vals) {
