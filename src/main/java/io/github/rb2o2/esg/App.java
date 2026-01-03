@@ -1,12 +1,76 @@
 package io.github.rb2o2.esg;
 
-import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
-        var mesh = new Mesh2D(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-        mesh.initMoves(new ArrayList<>(){{add(new Double[]{0.5,0.5,1.0});}});
-        Mesh2D.csvPrint(mesh.uvalues);
+//        var mesh = new Mesh2D(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+//        mesh.initMoves(new ArrayList<>(){{add(new Double[]{0.5,0.5,1.0});}});
+//        Mesh2D.csvPrint(mesh.uvalues);
+        new AppFrame();
+    }
+}
+
+class AppFrame extends JFrame {
+    private final Color[][] colorMesh;
+    private final Mesh2D mesh = new Mesh2D(64, 64, 64);
+    public AppFrame() {
+        setLayout(new BorderLayout());
+        colorMesh = new Color[64][64];
+        for (var i = 0; i < 64; i++) {
+
+            var b = new Color[64];
+            for (var j = 0; j < 64; j++) {
+                b[j] = Color.WHITE;
+            }
+            colorMesh[i] = b;
+
+        }
+        var panel = new JPanel() {
+            @Override
+            public void paint(Graphics g) {
+                super.paint(g);
+                var g2d = (Graphics2D) g;
+                for (var i = 0; i < colorMesh.length; i++) {
+                    for (var j = 0; j< colorMesh[0].length; j++) {
+                        g2d.setPaint(colorMesh[i][j]);
+                        var r = new Rectangle(i * 8, j * 8, 8, 8);
+                        g2d.draw(r);
+                        g2d.fill(r);
+
+                    }
+                }
+            }
+        };
+        var inputPanel = new JPanel(new FlowLayout());
+        var textFieldX = new JTextField("0.5");
+        var labelX = new JLabel("x:");
+        var textFieldY = new JTextField("0.5");
+        var labelY = new JLabel("y:");
+        var textFieldC = new JTextField("1.0");
+        var labelC = new JLabel("c:");
+        var scoreText = new JLabel("0 : 0");
+        var okMoveButton = new JButton("Move");
+        mesh.initMoves(List.of());
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+        setSize(800, 600);
+        setTitle("ESG v.0.1");
+        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        panel.setPreferredSize(new Dimension(512,512));
+        add(panel, BorderLayout.CENTER);
+        inputPanel.add(labelX);
+        inputPanel.add(textFieldX);
+        inputPanel.add(labelY);
+        inputPanel.add(textFieldY);
+        inputPanel.add(labelC);
+        inputPanel.add(textFieldC);
+        inputPanel.add(scoreText);
+        inputPanel.add(okMoveButton);
+        add(inputPanel, BorderLayout.EAST);
+        setVisible(true);
     }
 }
