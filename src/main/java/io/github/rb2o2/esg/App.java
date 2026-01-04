@@ -22,6 +22,7 @@ class AppFrame extends JFrame {
     private final Color c2 = new Color(255,0,0);
     private final Color[][] colorMesh;
     private final List<Double[]> moves = new ArrayList<>();
+    private int moveN = 1;
     private final Mesh2D mesh = new Mesh2D(64, 64, 64);
     public AppFrame() {
         setLayout(new BorderLayout());
@@ -77,7 +78,7 @@ class AppFrame extends JFrame {
         };
         var okMoveButton = new JButton();
         okMoveButton.setForeground(p2);
-        okMoveButton.setText("Move");
+        okMoveButton.setText("Move 1");
         okMoveButton.addActionListener((ActionEvent a) -> {
             var mv = new Double[] {
                     Double.parseDouble(textFieldX.getText()),
@@ -102,7 +103,7 @@ class AppFrame extends JFrame {
                 }
             }
             scoreText.setText("<html><font color='red'>%d</font> : <font color='green'>%d</font></html>".formatted(scoreP2,scoreP1));
-            okMoveButton.setText("Move");
+            okMoveButton.setText("Move %d".formatted(++moveN));
             panel.repaint();
         });
         panel.addMouseListener(new MouseAdapter() {
