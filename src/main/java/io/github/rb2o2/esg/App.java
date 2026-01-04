@@ -108,19 +108,19 @@ class AppFrame extends JFrame {
         });
         panel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
                 super.mouseClicked(e);
                 var x = e.getX();
                 var y = e.getY();
-                textFieldX.setText("%4.3f".formatted(x/512.));
-                textFieldY.setText("%4.3f".formatted(y/512.));
+                textFieldX.setText("%5.4f".formatted(x/512.));
+                textFieldY.setText("%5.4f".formatted(y/512.));
                 panel.repaint();
             }
         });
         mesh.initMoves(List.of());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-        setSize(800, 600);
+        setSize(690, 560);
         setTitle("ESG v.0.1");
         panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panel.setPreferredSize(new Dimension(512,512));
