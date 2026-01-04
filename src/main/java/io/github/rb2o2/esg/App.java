@@ -35,6 +35,19 @@ class AppFrame extends JFrame {
             colorMesh[i] = b;
 
         }
+        var layout = new GridBagLayout();
+        var inputPanel = new JPanel(layout);
+
+        var textFieldX = new JTextField("0.5");
+        textFieldX.setColumns(6);
+        var labelX = new JLabel("x:");
+        var textFieldY = new JTextField("0.5");
+        textFieldY.setColumns(6);
+        var labelY = new JLabel("y:");
+        var textFieldC = new JTextField("1.0");
+        textFieldC.setColumns(6);
+        var labelC = new JLabel("c:");
+        var scoreText = new JLabel("0 : 0");
         var panel = new JPanel() {
             @Override
             public void paint(Graphics g) {
@@ -56,28 +69,27 @@ class AppFrame extends JFrame {
                     g2d.draw(r);
                     g2d.fill(r);
                 }
+                var x = (int)Math.floor(Double.parseDouble(textFieldX.getText())*512);
+                var y = (int)Math.floor(Double.parseDouble(textFieldY.getText())*512);
+                g2d.setPaint(Color.BLACK);
+                g2d.drawLine(x-5, y, x-3, y);
+                g2d.drawLine(x+3, y, x+5, y);
+                g2d.drawLine(x, y-5, x, y-3);
+                g2d.drawLine(x, y+3, x, y+5);
+
             }
         };
-        var layout = new GridBagLayout();
-        var inputPanel = new JPanel(layout);
 
-        var textFieldX = new JTextField("0.5");
-        textFieldX.setColumns(6);
-        var labelX = new JLabel("x:");
-        var textFieldY = new JTextField("0.5");
-        textFieldY.setColumns(6);
-        var labelY = new JLabel("y:");
-        var textFieldC = new JTextField("1.0");
-        textFieldC.setColumns(6);
-        var labelC = new JLabel("c:");
-        var scoreText = new JLabel("0 : 0");
-        var okMoveButton = new JButton("Move");
+        var okMoveButton = new JButton();
+        okMoveButton.setForeground(p2);
+        okMoveButton.setText("Move");
         okMoveButton.addActionListener((ActionEvent a) -> {
             var mv = new Double[] {
                     Double.parseDouble(textFieldX.getText()),
                     Double.parseDouble(textFieldY.getText()),
                     Double.parseDouble(textFieldC.getText())};
             moves.add(mv);
+            okMoveButton.setForeground(moves.size()%2 ==0?p2:p1);
             okMoveButton.setText(". . .");
             mesh.updateWithMove(mv);
             var scoreP1 = 0;
@@ -94,7 +106,7 @@ class AppFrame extends JFrame {
                     }
                 }
             }
-            scoreText.setText("%d : %d".formatted(scoreP2,scoreP1));
+            scoreText.setText("<html><font color='red'>%d</font> : <font color='green'>%d</font></html>".formatted(scoreP2,scoreP1));
             okMoveButton.setText("Move");
             panel.repaint();
         });
@@ -106,6 +118,7 @@ class AppFrame extends JFrame {
                 var y = e.getY();
                 textFieldX.setText("%4.3f".formatted(x/512.));
                 textFieldY.setText("%4.3f".formatted(y/512.));
+                panel.repaint();
             }
         });
         mesh.initMoves(List.of());
