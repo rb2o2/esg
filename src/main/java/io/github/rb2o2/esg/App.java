@@ -3,6 +3,8 @@ package io.github.rb2o2.esg;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public class App {
 class AppFrame extends JFrame {
     private final Color p1 = new Color(19, 200, 42);
     private final Color p2 = new Color(181, 0, 75);
+    private final Color c1 = new Color(0,255,0);
+    private final Color c2 = new Color(255,0,0);
     private final Color[][] colorMesh;
     private final List<Double[]> moves = new ArrayList<>();
     private final Mesh2D mesh = new Mesh2D(64, 64, 64);
@@ -46,7 +50,7 @@ class AppFrame extends JFrame {
                     }
                 }
                 for (var i = 0; i < moves.size(); i++) {
-                    g2d.setPaint(Color.BLACK);
+                    g2d.setPaint(i%2 == 0? c2:c1);
                     var r = new Rectangle((int)Math.floor(moves.get(i)[0] * 512)-1,
                             (int) Math.floor(moves.get(i)[1] * 512)-1, 2, 2);
                     g2d.draw(r);
@@ -76,13 +80,33 @@ class AppFrame extends JFrame {
             moves.add(mv);
             okMoveButton.setText(". . .");
             mesh.updateWithMove(mv);
-            for (var i = 0; i< 64; i++) {
+            var scoreP1 = 0;
+            var scoreP2 = 0;
+            for (var i = 0; i < 64; i++) {
                 for (var j = 0; j < 64; j++) {
-                    colorMesh[i][j] = mesh.uvalues[i][j] >= 0 ? p1: p2;
+                    if (mesh.uvalues[i][j] >= 0) {
+
+                        colorMesh[i][j] = p1;
+                        scoreP1++;
+                    } else {
+                        colorMesh[i][j] = p2;
+                        scoreP2++;
+                    }
                 }
             }
+            scoreText.setText("%d : %d".formatted(scoreP2,scoreP1));
             okMoveButton.setText("Move");
             panel.repaint();
+        });
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                var x = e.getX();
+                var y = e.getY();
+                textFieldX.setText("%4.3f".formatted(x/512.));
+                textFieldY.setText("%4.3f".formatted(y/512.));
+            }
         });
         mesh.initMoves(List.of());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
