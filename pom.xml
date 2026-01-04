@@ -9,17 +9,9 @@
     <packaging>jar</packaging>
 
     <name>esg</name>
-    <description>Sample project for regularized Dirac delta evaluation</description>
+    <description>Electrostaic Go for 2 players (hot-seat)</description>
     <url>https://github.com/rb2o2/esg</url>
 
-
-    <dependencies>
-        <dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.5.6</version>
-        </dependency>
-    </dependencies>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -32,7 +24,7 @@
         <developer>
             <id>rb2o2</id>
             <name>Roman B.</name>
-            <email>roman@example.com</email>
+            <email>rb2o2.dev@gmail.com</email>
         </developer>
     </developers>
 
