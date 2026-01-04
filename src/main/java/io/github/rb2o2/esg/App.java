@@ -27,17 +27,14 @@ class AppFrame extends JFrame {
         setLayout(new BorderLayout());
         colorMesh = new Color[64][64];
         for (var i = 0; i < 64; i++) {
-
             var b = new Color[64];
             for (var j = 0; j < 64; j++) {
                 b[j] = Color.WHITE;
             }
             colorMesh[i] = b;
-
         }
         var layout = new GridBagLayout();
         var inputPanel = new JPanel(layout);
-
         var textFieldX = new JTextField("0.5");
         textFieldX.setColumns(6);
         var labelX = new JLabel("x:");
@@ -59,7 +56,6 @@ class AppFrame extends JFrame {
                         var r = new Rectangle(i * 8, j * 8, 8, 8);
                         g2d.draw(r);
                         g2d.fill(r);
-
                     }
                 }
                 for (var i = 0; i < moves.size(); i++) {
@@ -79,7 +75,6 @@ class AppFrame extends JFrame {
 
             }
         };
-
         var okMoveButton = new JButton();
         okMoveButton.setForeground(p2);
         okMoveButton.setText("Move");
@@ -130,23 +125,18 @@ class AppFrame extends JFrame {
         panel.setPreferredSize(new Dimension(512,512));
         add(panel, BorderLayout.CENTER);
         var gc = new GridBagConstraints() {{this.fill = GridBagConstraints.BOTH;}};
-
         layout.setConstraints(labelX, gc);
         inputPanel.add(labelX);
         layout.setConstraints(textFieldX, gc);
         inputPanel.add(textFieldX);
-
-
         layout.setConstraints(labelY, gc);
         inputPanel.add(labelY);
         gc.gridwidth = GridBagConstraints.REMAINDER;
         layout.setConstraints(textFieldY, gc);
         inputPanel.add(textFieldY);
         gc.gridwidth = 1;
-
         layout.setConstraints(labelC, gc);
         inputPanel.add(labelC);
-
         layout.setConstraints(textFieldC, gc);
         inputPanel.add(textFieldC);
         gc.gridwidth = GridBagConstraints.REMAINDER;
