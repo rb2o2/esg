@@ -72,18 +72,14 @@ public class Mesh2D {
                 sb.append(String.format(Locale.US, "%.2e,", vals[i][j]));
             }
             sb.append(String.format(Locale.US, "%.2e", vals[i][vals[0].length -1]));
-        }   
+        }
         // sb.append("0.00");
         for (int i = 1; i < vals.length; i++){
             sb.append("\n");
             for (int j = 0; j < vals[0].length-1; j++) {
-                
-                    sb.append(String.format(Locale.US, "%.2e,", vals[i][j]));
-                
-                
+                sb.append(String.format(Locale.US, "%.2e,", vals[i][j]));
             }
             sb.append(String.format(Locale.US, "%.2e", vals[i][vals[0].length -1]));
-            
         }
         return sb.toString();
     }
