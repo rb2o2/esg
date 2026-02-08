@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class App {
     public static void main(String[] args) {
@@ -112,8 +113,8 @@ class AppFrame extends JFrame {
                 super.mouseClicked(e);
                 var x = e.getX();
                 var y = e.getY();
-                textFieldX.setText("%5.4f".formatted(x/512.));
-                textFieldY.setText("%5.4f".formatted(y/512.));
+                textFieldX.setText(String.format(Locale.US, "%5.4f", x/512.));
+                textFieldY.setText(String.format(Locale.US, "%5.4f", y/512.));
                 panel.repaint();
             }
         });
